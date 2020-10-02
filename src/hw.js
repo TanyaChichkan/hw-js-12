@@ -1,5 +1,6 @@
 import countriesTempl from './templates/countries.hbs';
 import countriesList from './templates/list-countries.hbs';
+import { showError, showNotice } from './notifications';
 
 const refs = {
   input: document.querySelector('.js-search'),
@@ -24,12 +25,12 @@ const debouncedCallback = _.debounce(event => {
         const markup = countriesTempl(countries);
 
         countries.length > 10
-          ? alert('Error')
+          ? showNotice()
           : countries.length >= 2 && countries.length <= 10
           ? refs.ul.insertAdjacentHTML('beforeend', markupadd)
           : countries.length === 1
           ? refs.list.insertAdjacentHTML('beforeend', markup)
-          : alert('Try again');
+          : showError();
       });
   }
 }, 500);
